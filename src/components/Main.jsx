@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 import Header from "./Header"
 import { useSelector } from "react-redux"
 
-export default function Main({API}){
+export default function Main(){
 
     const loggedIn = useSelector((state) => state.user.loggedIn)
     const userInfo = useSelector((state) => state.user.userInfo)

@@ -16,13 +16,11 @@ const API = "http://localhost:3000";
 
 function App() {
 
-  
-
   return (
     <>    
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Main API={API}/>} />
+        <Route path="/" element={<Main/>} />
         <Route path="/rental" element={<RentalHistory API={API} />} />
         <Route path="/rental/movieinfo/:store/:id" element={<MovieInfo API={API}/>} />
         <Route path="/new_customer" element={<NewCustomer API={API}/>} />
