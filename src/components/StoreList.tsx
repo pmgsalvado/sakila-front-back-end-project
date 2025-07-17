@@ -1,10 +1,25 @@
 import { useEffect, useState } from "react"
 
+// types section
+interface Store {
+    store_id: number,
 
-export default function StoreList({API}){
-    const [storeList, setStoreList] = useState([]);
-    const [countriesList, setCountriesList] = useState([])
-    const fecthStoreData = async (method = "GET", payload) =>{
+}
+interface Country {
+    country_id: number,
+    country: string
+}
+
+interface Props {
+    API: string
+}
+
+export default function StoreList({API}: Props){
+    
+    const [storeList, setStoreList] = useState<Store[]>([]);
+    const [countriesList, setCountriesList] = useState<Country[]>([])
+
+    const fecthStoreData = async (method: string = "GET", payload?: any ) =>{
         
         const send = method == "GET" ? {} : {
         headers : {"Content-Type": "application/json"},
@@ -22,14 +37,14 @@ export default function StoreList({API}){
         fecthStoreData()
     }, [])
 
-    const storeListElement = storeList.map(store => 
+    const storeListElement = storeList.map((store) =>( 
         <li className="list-group-item" key={store.store_id}>{store.store_id}</li>
-    )
+    ))
 
-    const fetchCountriesData = async (method = "GET", payload) =>{
+    const fetchCountriesData = async (method = "GET", payload?: any) =>{
         const send = method == "GET" ? {} : {
             headers : {"Content-Type": "application/json"},
-            body: JSON.stringify(payloa)
+            body: JSON.stringify(payload)
         }
         try{
             const res = await fetch(`${API}/sakila/countries`, {method, ...send})
@@ -73,7 +88,7 @@ export default function StoreList({API}){
                     <label className="input-group-text" htmlFor="inputGroupSelect01">Options</label>
                 </div>
                 <select className="custom-select" id="inputGroupSelect01">
-                    <option defaultValue={null}>Choose...</option>
+                    <option value="">Choose...</option>
                     {countriesListOptionElement}
                 </select>
             </div>
@@ -81,9 +96,3 @@ export default function StoreList({API}){
         </div>
     )
 }
-
-/* <button type="button" className="btn btn-light" onClick={() => fetchCountriesData()}>Fetch Countries List</button>
-                <ul className="list-group">
-                    {countriesListElement}
-                </ul>
-*/

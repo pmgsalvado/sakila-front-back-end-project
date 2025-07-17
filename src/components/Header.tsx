@@ -1,8 +1,7 @@
-import { useNavigate } from "react-router"
 import NavBar from "./reused_components/NavBar"
 
 
-export default function Header(props){
+export default function Header(){
     
     return (
         <>
