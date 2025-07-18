@@ -7,6 +7,7 @@ import NewCustomer from "./components/NewCustomer";
 import Input from "./components/reused_components/Input";
 import NewRental from "./components/NewRental";
 import Login from "./components/Login";
+import UserRentalHistory from './components/UserRentalHistory';
 import './index.css'
 
 
@@ -22,6 +23,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Main/>} />
         <Route path="/rental" element={<RentalHistory API={API} />} />
+        <Route path="/user_rental_history" element={<UserRentalHistory API={API}/>} />
         <Route path="/rental/movieinfo/:store/:id" element={<MovieInfo API={API}/>} />
         <Route path="/new_customer" element={<NewCustomer API={API}/>} />
         <Route path="/form" element={<Input />} />

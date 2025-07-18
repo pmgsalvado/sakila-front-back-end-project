@@ -10,14 +10,21 @@ export default function Main(){
         <div className="container">
             <Header />
             <div className="btn-group" role="group" aria-label="">
-                <Link to="/rental" className="btn btn-outline-light" aria-current="Rental History" > Rental History</Link>
-                {userInfo.email == "admin@mail.com" && 
-                <Link 
-                    to="/new_customer" 
-                    className="btn btn-outline-light" 
-                    aria-current="Rent Film">
-                        New Customer
-                </Link>}
+                {userInfo.email == "admin@mail.com" ? (
+                <>
+                    <Link to="/rental" className="btn btn-outline-light" aria-current="Rental History" > Rental History</Link>
+                    <Link 
+                        to="/new_customer" 
+                        className="btn btn-outline-light" 
+                        aria-current="Rent Film">
+                            New Customer
+                    </Link>
+                </>) : (
+                    <>
+                    <Link to="/user_rental_history" className="btn btn-outline-light" aria-current="User Rental History"> Rental History </Link>
+                    </>
+                )}
+                
             </div>
         </div>
     )

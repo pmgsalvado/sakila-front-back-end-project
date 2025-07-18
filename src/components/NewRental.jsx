@@ -13,7 +13,7 @@ export default function NewRental({API}){
     const [inventoryId, setInventoryId] = useState("")
     const [rentalSuccess, setRentalSuccess] = useState(false)
     const {customerId} =  useParams()
-    
+    const [loadingMovies, setLoadingMovies] = useState(false)
     const payload = {
                 customer_id: customerId
             };
@@ -41,6 +41,7 @@ export default function NewRental({API}){
     }
     // get the list of all the movies
     async function fetchMovies(method = "GET", payload){
+        setLoadingMovies(true)
         try{
             const data = await movieList(API, method, payload)
             setMoviesList(data)
@@ -48,6 +49,8 @@ export default function NewRental({API}){
         }
         catch(err){
             return err
+        } finally{
+            setLoadingMovies(false)
         }
     }
 
@@ -166,7 +169,17 @@ export default function NewRental({API}){
                     {releaseYearOptionElem}
                 </select>
             </form>
-            <MovieCard movies={moviesList} storeId={customerInfor.store_id} history={false} customerId={customerId} handleRental={handleRental}/>
+            {loadingMovies ? (
+                <div className="text-center">
+                    <div className="spinner-border" style={{width: "3rem", height: "3rem"}} role="status">
+                        <span className="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            ) : 
+            (
+                <MovieCard movies={moviesList} storeId={customerInfor.store_id} history={false} customerId={customerId} handleRental={handleRental}/>
+            )}
+            
         </div>
         </>
     )

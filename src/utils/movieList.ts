@@ -1,5 +1,5 @@
 
-export async function movieList(API, method="GET", payload){    
+export async function movieList(API: string, method: string ="GET", payload: any){    
     const send = method == "GET" ? {}: {
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(payload) 

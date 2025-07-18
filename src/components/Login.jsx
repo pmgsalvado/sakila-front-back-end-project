@@ -22,6 +22,7 @@ export default function Login({API}){
     } = useForm()
 
     // verify if user exists in dataBase
+    /**
     async function verifyCustomer(method = "GET", payload) {
             
         const [customer] = await verifyCustomerAPI(API, method, payload)
@@ -36,15 +37,19 @@ export default function Login({API}){
         }
         
     }
-
+ */
 
     async function onSubmit(data){
-        console.log("email: ", data.email)
+        
+        const result = await dispatch(fetchUserByMail(data.email))
+        console.log("result: ", result)
         console.log("loggedIn: ", loggedIn)
-        dispatch(fetchUserByMail(data.email))
         // user global state
-        if (loggedIn){
+        // if to check the state of the request and compare (match) with the result (importante had issues with this)
+        if (fetchUserByMail.fulfilled.match(result)){
             navigate("/")
+        }else{
+            setCustomerDoesNotExists(true)
         }
         
         
@@ -69,8 +74,8 @@ export default function Login({API}){
                 </Link>
             </div>
             )}
+            
             <h2>Login Page</h2>
-            <p>User: {userInfo.store_id} </p>
             <form className="row g-3" onSubmit={handleSubmit(onSubmit)}>
                 {/** Email */}
                 <Input 

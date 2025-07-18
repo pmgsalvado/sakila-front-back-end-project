@@ -1,7 +1,27 @@
 //import MovieInfo from "./MovieInfo"
 import { Link } from "react-router-dom"
 
-export default function MovieCard({movies, storeId = "1", customerId = "", history = true, handleRental, handleRRental}){
+//types:
+interface Movie {
+    film_id: string;
+    rental_id: string;
+    Date: string;
+    RDate?: string;
+    title: string;
+    release_year: string;
+    description: string
+}
+interface MovieCardProps{
+    movies: Movie[];
+    storeId?: string;
+    customerId?: string;
+    history?: boolean;
+    handleRental?: (filmId: string) => void;
+    handleRRentalF?: (rentalId: string) => void;
+}
+
+
+export default function MovieCard({movies, storeId = "1", customerId = "", history = true, handleRental, handleRRentalF}: MovieCardProps){
 
     const moviesCardsElemnts = movies.map( movie => (
         <div className="col-md-4" key={`${movie.film_id}+${movie["Date"]}+${movie.rental_id}`}>
@@ -30,10 +50,10 @@ export default function MovieCard({movies, storeId = "1", customerId = "", histo
                     <p>{movie.description}</p>
                     
                     <div className="btn-group" role="group">  
-                            <a href={`/rental/movieinfo/${storeId}/${movie.film_id}`} 
+                            <Link to={`/rental/movieinfo/${storeId}/${movie.film_id}`} 
                                 className="btn btn-primary"
                             >   More info
-                            </a>
+                            </Link>
                         
                         {!history && (
                             <a href="#" className="btn btn-primary"
@@ -47,7 +67,7 @@ export default function MovieCard({movies, storeId = "1", customerId = "", histo
                             <a href="#" className="btn btn-warning"
                                 onClick={() =>{
                                     
-                                    if (handleRRental) handleRRental(movie.rental_id)
+                                    if (handleRRentalF) handleRRentalF(movie.rental_id)
                                 }}> Return Film</a>
                         )}
                     </div>
